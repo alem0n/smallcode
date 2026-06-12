@@ -1,0 +1,31 @@
+# Python 字节码
+__pycache__/
+*.pyc
+*.pyo
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统
+.DS_Store
+Thumbs.db
+
+# 环境变量 / 密钥
+.env
+*.key
+
+# 项目构建
+dist/
+*.egg-info/
+  
+# atomcode ����  
+.atomcode/ 
