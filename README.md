@@ -52,7 +52,7 @@ smallcode 受以下项目启发，但在功能定位上各有侧重：
 
 - **[Claude Code](https://github.com/anthropics/claude-code)** — Anthropic 官方推出的 AI 编码代理，功能完整，依赖 Anthropic API。
 - **[AtomCode](https://atomgit.com)** — AtomGit 平台的 AI 编码代理，提供多种模型支持，集成于 AtomGit 生态。
-- **[NanoCode](https://github.com/xisui/nanocode)** — 极简 AI 编码代理，追求最小体积和零依赖，以单文件形式发布。
+- **[NanoCode](https://github.com/1rgs/nanocode)** — 极简 AI 编码代理，追求最小体积和零依赖，以单文件形式发布。
 
 smallcode 定位介于它们之间：保持轻量但提供完整的工具集（文件操作、网页搜索、抓取），
 通过 DeepSeek API 驱动，专注于个人开发者的日常编码辅助需求。
