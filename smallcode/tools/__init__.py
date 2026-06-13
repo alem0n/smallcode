@@ -18,6 +18,13 @@ from typing import Any, Callable, Dict, List, Tuple
 from smallcode.tools.file_tools import bash, edit, glob, grep, read, write
 from smallcode.tools.web_fetch import web_fetch
 from smallcode.tools.web_search import web_search
+from smallcode.tools.planning_tools import (
+    read_scratchpad,
+    write_scratchpad,
+    todo_append,
+    todo_list,
+    todo_update,
+)
 
 # ── 工具注册表 ─────────────────────────────────────────────────────────────────
 # 每个条目：(描述文本, 参数字典 {名称: 类型}, 实现函数)
@@ -68,6 +75,45 @@ TOOLS: Dict[str, Tuple[str, Dict[str, str], Callable]] = {
         "仅允许 http:// 和 https:// 协议；自动阻止对 localhost、私有网络和云元数据端点的请求。",
         {"url": "string", "format": "string?", "max_chars": "number?"},
         web_fetch,
+    ),
+    # ── 长任务规划工具 ────────────────────────────────────────────────────
+    "read_scratchpad": (
+        "读取草稿本（scratchpad）的当前内容。草稿本是你的私人工作记忆，\n"
+        "可用于回顾之前写下的思路、方案和中间结论。\n"
+        "使用场景：开始新步骤前回顾之前的推理，或确认之前的发现。",
+        {},
+        read_scratchpad,
+    ),
+    "write_scratchpad": (
+        "写入草稿本（scratchpad）。先前的内容将被完全覆盖。\n"
+        "草稿本是你的私人工作记忆，用于思考方案、记录中间发现、\n"
+        "分析选项、预判失败模式。每次写入都会替换之前的内容。",
+        {"content": "string"},
+        write_scratchpad,
+    ),
+    "todo_append": (
+        "向任务清单追加一条新任务。每条任务有唯一 ID 和状态。\n"
+        "状态可选值：pending（待办）、in_progress（进行中）、\n"
+        "done（完成）、cancelled（取消）、failed（失败）。\n"
+        "不允许重复 ID。添加后使用 todo_update 更新进度。",
+        {"id": "string", "content": "string", "status": "string"},
+        todo_append,
+    ),
+    "todo_list": (
+        "查看任务清单。默认仅显示未完成的任务（pending、in_progress、failed）。\n"
+        "设置 include_completed=true 可同时查看已完成和已取消的任务。\n"
+        "使用场景：开始下一步前检查剩余工作，或在标记 done 后确认进度。",
+        {"include_completed": "boolean?"},
+        todo_list,
+    ),
+    "todo_update": (
+        "更新指定任务的内容和/或状态。\n"
+        "状态可选值：pending、in_progress、done、cancelled、failed。\n"
+        "从 failed 改回 in_progress 会计为一次重试（上限 3 次）。\n"
+        "使用场景：开始执行任务时标记 in_progress，完成后标记 done，\n"
+        "遇到不可恢复错误时标记 failed。",
+        {"id": "string", "content": "string?", "status": "string?"},
+        todo_update,
     ),
 }
 

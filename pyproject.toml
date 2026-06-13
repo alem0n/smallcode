@@ -1,10 +1,10 @@
 [build-system]
 requires = ["setuptools>=68.0"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "smallcode"
-version = "0.1.0"
+version = "0.2.0"
 description = "命令行 AI 编码助手 — 本地文件操作、网页搜索与 AI 对话"
 readme = "README.md"
 license = {text = "MIT"}
@@ -13,6 +13,9 @@ authors = [
 ]
 requires-python = ">=3.10"
 keywords = ["AI", "coding", "assistant", "cli"]
+
+[project.scripts]
+smallcode = "smallcode:main"
 
 [tool.setuptools.packages.find]
 include = ["smallcode*"]
