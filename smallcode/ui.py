@@ -206,17 +206,17 @@ def main() -> None:
                             print(f"\n  {DIM}{icon} {tool_name}{RESET}")
                             result = run_tool(tool_name, tool_args)
                             # 只显示第一行输出
-                            preview = result.split("\n")[0][:80]
+                            preview = result.split("\n")[0]
                             print(f"    {DIM}⎿  {preview}{RESET}")
                         else:
                             # 行动工具：现有显示方式
-                            arg_preview = str(list(tool_args.values())[0])[:50]
+                            arg_preview = str(list(tool_args.values())[0])
                             print(
                                 f"\n{GREEN}>> {tool_name.capitalize()}{RESET}({DIM}{arg_preview}{RESET})"
                             )
                             result = run_tool(tool_name, tool_args)
                             result_lines = result.split("\n")
-                            preview = result_lines[0][:60]
+                            preview = result_lines[0][:120]
                             if len(result_lines) > 1:
                                 preview += f" ... +{len(result_lines) - 1} 行"
                             elif len(result_lines[0]) > 60:

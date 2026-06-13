@@ -138,7 +138,7 @@ def todo_append(args: Dict[str, Any]) -> str:
     status_val = str(args.get("status", "pending"))
     try:
         _todo.append(id_val, content_val, status_val)
-        return f"📋 已添加任务 [{id_val}]：{content_val}（{status_val}）"
+        return f"📋 已添加任务 {id_val}-{content_val}-{status_val}"
     except (ValueError, Exception) as e:
         return f"error: 添加任务失败: {e}"
 
@@ -170,7 +170,7 @@ def todo_list(args: Dict[str, Any]) -> str:
     for item in items:
         retry_note = f"（{item['retries']} 次重试）" if item["retries"] > 0 else ""
         lines.append(
-            f"  [{item['id']}] {item['content']} — {item['status']}{retry_note}"
+            f"  {item['id']}-{item['content']}-{item['status']}{retry_note}"
         )
 
     return "\n".join(lines)
@@ -198,12 +198,7 @@ def todo_update(args: Dict[str, Any]) -> str:
     try:
         item = _todo.update(id_val, content_val, status_val)
         retries = item["retries"]
-        parts = []
-        if status_val:
-            parts.append(f"状态 → {status_val}")
-        if content_val:
-            parts.append(f"内容已更新")
-        msg = f"📋 任务 [{id_val}]：{'，'.join(parts)}"
+        msg = f"📋 已更新任务 {item['id']}-{item['content']}-{item['status']}"
 
         # 重试提醒
         if status_val == "in_progress" and retries > 0:
